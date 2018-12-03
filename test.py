@@ -66,6 +66,10 @@ class TestConverters(object):
     def test_py2javaRDD2(self, java_sc, py_sc):
         data = [np.zeros((20, 10)) for _ in range(100)]
 
+        # numpy arrays might get gced, so we create jp arrays too
+        # adding to a global list will also work
+        refs = [jp.array(x) for x in data]
+
         py_rdd = py_sc.parallelize(data)
         java_rdd = py2javaRDD2(py_rdd, java_sc)
 
