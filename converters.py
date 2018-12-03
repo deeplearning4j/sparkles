@@ -2,6 +2,7 @@ from pydatavec.java_classes import SparkConf, SparkContext
 from pydatavec.java_classes import ArrayList
 import jumpy as jp
 import pyspark
+from pyspark.mllib.common import _py2java, _java2py
 
 
 def java2pyRDD(java_rdd, py_sc):
@@ -39,6 +40,7 @@ def py2javaRDD(py_rdd, java_sc):
 
     JavaRDD<INDArray> instance
     '''
+    return _py2java(java_sc, py_rdd)
     nparray_list = py_rdd.collect()
     indarray_list = ArrayList()
 
