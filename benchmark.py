@@ -1,10 +1,12 @@
-from converters import py2javaRDD, java2pyRDD
+#from naive import py2javaRDD, java2pyRDD
+from fast_impl import java2pyRDD
 from pydatavec.java_classes import SparkConf, SparkContext
 from pydatavec.java_classes import ArrayList
 import pyspark
 import time
 import numpy as np
 import jumpy as jp
+
 
 
 py_sc = pyspark.SparkContext(master='local[*]', appName='test')
@@ -16,8 +18,8 @@ java_sc = SparkContext(config)
 
 data = ArrayList()
 start = time.time()
-for _ in range(100):
-    arr = jp.zeros((3200, 20, 10)).array
+for _ in range(10000):
+    arr = jp.zeros((20, 10)).array
     data.add(arr)
 end = time.time()
 data_creation_time = end - start

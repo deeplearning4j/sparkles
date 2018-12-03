@@ -40,7 +40,6 @@ def py2javaRDD(py_rdd, java_sc):
 
     JavaRDD<INDArray> instance
     '''
-    return _py2java(java_sc, py_rdd)
     nparray_list = py_rdd.collect()
     indarray_list = ArrayList()
 
@@ -48,5 +47,4 @@ def py2javaRDD(py_rdd, java_sc):
         jparray = jp.array(nparray)
         indarray = jparray.array
         indarray_list.add(indarray)
-
     return java_sc.parallelize(indarray_list)
