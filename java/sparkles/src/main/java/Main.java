@@ -15,13 +15,11 @@ import java.util.List;
 public class Main {
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         INDArray x = Nd4j.zeros(32, 10);
         INDArray y = Nd4j.zeros(32, 10);
         ArrayList data = new ArrayList();
-        DataSet ds = new DataSet(x, y);
-        //data.add(ds);
 
         data.add(x);
         data.add(y);
@@ -32,9 +30,6 @@ public class Main {
         JavaSparkContext jsc = new JavaSparkContext(conf);
 
         JavaRDD<INDArray> rdd = jsc.parallelize(data);
-        JavaRDD<ArrayDescriptor> adRDD = Utils.getArrayDescriptorRDD(rdd);
-        JavaRDD<INDArray> rdd2 = Utils.getArrayRDD(adRDD);
-
-        System.out.println(ArrayUtils.toString(rdd2.collect().get(0).shape()));
+        List<INDArray> z = rdd.collect();
     }
 }

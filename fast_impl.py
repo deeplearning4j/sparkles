@@ -13,7 +13,7 @@ from pydatavec.java_classes import ArrayList
 
 sparkles = jnius.autoclass('Utils')
 ArrayDescriptor = jnius.autoclass('ArrayDescriptor')
-DataType = jnius.autoclass('org.nd4j.linalg.api.buffer.DataBuffer$Type')
+DataType = jnius.autoclass('org.nd4j.linalg.api.buffer.DataType')
 
 jp.disable_gc()
 
