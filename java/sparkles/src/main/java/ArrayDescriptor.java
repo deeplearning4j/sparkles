@@ -55,6 +55,7 @@ public class ArrayDescriptor implements java.io.Serializable{
 
     public INDArray getArray() {
         Pointer ptr = nativeOps.pointerForAddress(address);
+        ptr = ptr.limit(size());
         DataBuffer buff = Nd4j.createBuffer(ptr, size(), type);
         return Nd4j.create(buff, shape, stride, 0, order, type);
     }
