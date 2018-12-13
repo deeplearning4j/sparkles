@@ -15,18 +15,20 @@ public class ArrayDescriptor implements java.io.Serializable{
     private long address;
     private long[] shape;
     private long[] stride;
+    char order;
     DataType type;
     private static NativeOps nativeOps = NativeOpsHolder.getInstance().getDeviceNativeOps();
 
     public ArrayDescriptor(INDArray array) throws Exception{
-        this(array.data().address(), array.shape(), array.stride(), array.data().dataType());
+        this(array.data().address(), array.shape(), array.stride(), array.data().dataType(), array.ordering());
     }
 
-    public ArrayDescriptor(long address, long[] shape, long[] stride, DataType type) throws Exception{
+    public ArrayDescriptor(long address, long[] shape, long[] stride, DataType type, char order) throws Exception{
         this.address = address;
         this.shape = shape;
         this.stride = stride;
         this.type = type;
+        this.order = order;
         if (type != DataType.FLOAT && type != DataType.DOUBLE){
             throw new Exception("Unsupported type.");
         }
@@ -54,7 +56,6 @@ public class ArrayDescriptor implements java.io.Serializable{
     public INDArray getArray() {
         Pointer ptr = nativeOps.pointerForAddress(address);
         DataBuffer buff = Nd4j.createBuffer(ptr, size(), type);
-        return Nd4j.create(buff, shape, stride, 0);
-
+        return Nd4j.create(buff, shape, stride, 0, order, type);
     }
 }
