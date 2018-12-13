@@ -51,11 +51,10 @@ public class ArrayDescriptor implements java.io.Serializable{
         return s;
     }
 
-    public INDArray getArray(){
+    public INDArray getArray() {
         Pointer ptr = nativeOps.pointerForAddress(address);
         DataBuffer buff = Nd4j.createBuffer(ptr, size(), type);
         return Nd4j.create(buff, shape, stride, 0);
 
     }
-
 }
