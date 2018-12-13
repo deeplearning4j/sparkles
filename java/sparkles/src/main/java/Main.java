@@ -28,8 +28,9 @@ public class Main {
         conf.setMaster("local[*]");
         conf.setAppName("Test");
         JavaSparkContext jsc = new JavaSparkContext(conf);
-
         JavaRDD<INDArray> rdd = jsc.parallelize(data);
         List<INDArray> z = rdd.collect();
+        jsc.stop();
+        System.out.println(z.get(0));
     }
 }
